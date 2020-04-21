@@ -18,6 +18,11 @@ in its explanation, open an issue. Sometimes you get too
 close to something and you fail to see the "bigger
 picture"!
 
+Note:
+This fork only changes the way colors (palette) are shown,
+as pftech only shows 8 of 16 colors. This change is 
+borrowed from neofetch for a quick and dirty fix.
+
 <br>
 <br>
 <br>

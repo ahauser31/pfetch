@@ -909,12 +909,34 @@ get_palette() {
     #
     # This allows us to save hardcoding a second set of sequences
     # for background colors.
-    palette="[7m$c1 $c1 $c2 $c2 $c3 $c3 $c4 $c4 $c5 $c5 $c6 $c6 [m"
+    #palette="[7m$c1 $c1 $c2 $c2 $c3 $c3 $c4 $c4 $c5 $c5 $c6 $c6 [m"
 
     # Print the palette with a new-line before and afterwards.
-    printf '\n' >&6
-    log "$palette 
-        " " " >&6
+    #printf '\n' >&6
+    #log "$palette 
+    #    " " " >&6
+    
+    local blocks blocks2 block_count
+    block_count=0
+
+    for ((block_count; block_count<=15; block_count++)); do
+	case ${block_count} in
+		[0-7])
+	    		printf -v blocks  '%b\e[3%bm\e[4%bm  ' \
+	            		"$blocks" "${block_count}" "${block_count}"
+		;;
+
+		*)
+			printf -v blocks2  '%b\e[38;5;%bm\e[48;5;%bm  ' \
+	            		"$blocks2" "${block_count}" "${block_count}"
+		;;
+	esac
+    done
+    printf '\n[%sC' "${ascii_width--1}" >&6
+    printf '%b\e[m' "$blocks" >&6
+    printf '\n[%sC' "${ascii_width--1}" >&6
+    printf '%b\e[m\n' "$blocks2" >&6
+
 }
 
 get_ascii() {
